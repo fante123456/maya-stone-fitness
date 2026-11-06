@@ -19,7 +19,7 @@ export default function AppleIcon() {
         }}
       >
         <svg width="120" height="120" viewBox="0 0 32 32">
-          <path d="M7 23V9.5h3.4L16 17l5.6-7.5H25V23h-3.6v-7.6L16 22.4l-5.4-7V23z" fill="#101010" />
+          <path d="M16 5.5 25.5 26.5h-4.6l-1.9-4.6h-6l-1.9 4.6H6.5zm0 7.6-1.9 5.2h3.8z" fill="#101010" fillRule="evenodd" />
         </svg>
       </div>
     ),

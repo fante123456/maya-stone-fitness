@@ -1,34 +1,28 @@
-// Fictional brand details from the MX AI Academy Challenge 3 brief. Do not change.
+// Real public facts about Accro Temple (Hassane Yahya), checked on 6 Nov 2026.
+// Practice demo only: do not add anything that is not in the public sources.
 // The live address, used for canonical URLs, the sitemap and share links.
 // Placeholder until the o2switch address is known: change the fallback below
 // (or set NEXT_PUBLIC_SITE_URL) and run `npm run build` again. No trailing slash.
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://maya-stone.ammar-rajabi.com";
 
 export const site = {
-  name: "Maya Stone Fitness",
-  tagline: "Stronger body, clearer mind, better lifestyle",
-  phoneDisplay: "0161 555 7402",
-  phoneHref: "tel:+441615557402",
-  email: "train@mayastonefitness.co.uk",
-  address: {
-    street: "Studio 4, 72 Bridge Street",
-    city: "Manchester",
-    postcode: "M3 2RJ",
-    country: "United Kingdom",
-  },
-  mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=72+Bridge+Street+Manchester+M3+2RJ",
-  hours: [
-    { days: "Monday to Friday", time: "6:30 to 20:00" },
-    { days: "Saturday", time: "8:00 to 13:00" },
-    { days: "Sunday", time: "Closed" },
-  ],
+  name: "Accro Temple",
+  coach: "Hassane Yahya",
+  city: "Saint-Lô",
+  postcode: "50000",
+  phoneDisplay: "07 86 91 99 39",
+  phoneHref: "tel:+33786919939",
+  mapsUrl: "https://maps.google.com/?cid=16537510334274491872",
+  instagram: "https://www.instagram.com/accrotemplecoaching/",
+  facebook: "https://www.facebook.com/accrotemplecoaching",
+  rating: { fr: "5,0", en: "5.0", count: 31 },
 } as const;
 
+/** French paths (the default language). The sitemap uses this list. */
 export const nav = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/programmes", label: "Programmes" },
-  { href: "/results", label: "Results" },
+  { href: "/", label: "Accueil" },
+  { href: "/about", label: "À propos" },
+  { href: "/programmes", label: "Coaching" },
+  { href: "/results", label: "Avis" },
   { href: "/contact", label: "Contact" },
 ] as const;

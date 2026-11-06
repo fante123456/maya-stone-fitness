@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   poweredByHeader: false,
+  // FR and EN have separate root layouts (correct <html lang>), so the 404 page
+  // needs the global-not-found file.
+  experimental: {
+    globalNotFound: true,
+  },
   images: {
     // o2switch has no Next.js image server: Unsplash's CDN resizes and
     // converts each image (AVIF/WebP). See lib/unsplash-loader.ts

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import type { ReactNode } from "react";
 import type { Photo } from "@/lib/photos";
+import { site } from "@/lib/site";
+import { ui, type Lang } from "@/lib/i18n";
 
 type ButtonVariant = "primary" | "outline" | "dark";
 
@@ -20,12 +22,15 @@ export function ButtonLink({
   children,
   variant = "primary",
   arrow = false,
+  external = false,
   className = "",
 }: {
   href: string;
   children: ReactNode;
   variant?: ButtonVariant;
   arrow?: boolean;
+  /** Opens in a new tab (Google Maps, social links). */
+  external?: boolean;
   className?: string;
 }) {
   const classes = `${buttonBase} ${buttonVariants[variant]} ${className}`;
@@ -43,7 +48,11 @@ export function ButtonLink({
     );
   }
   return (
-    <a href={href} className={classes}>
+    <a
+      href={href}
+      className={classes}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+    >
       {content}
     </a>
   );
@@ -63,6 +72,27 @@ export function Mark({
     <span className={`mark${onLoad ? " mark-load" : ""}${dark ? " mark-dark" : ""}`}>
       {children}
     </span>
+  );
+}
+
+/** Renders a title stored as [before, marked word, after]. */
+export function Marked({
+  t,
+  onLoad = false,
+  dark = false,
+}: {
+  t: readonly [string, string, string];
+  onLoad?: boolean;
+  dark?: boolean;
+}) {
+  return (
+    <>
+      {t[0]}
+      <Mark onLoad={onLoad} dark={dark}>
+        {t[1]}
+      </Mark>
+      {t[2]}
+    </>
   );
 }
 
@@ -107,22 +137,27 @@ export function Container({ children, className = "" }: { children: ReactNode; c
  */
 export function PhotoBox({
   photo,
+  lang,
   sizes,
   className = "",
   preload = false,
   eager = false,
+  illustration = false,
 }: {
   photo: Photo;
+  lang: Lang;
   sizes: string;
   className?: string;
   preload?: boolean;
   eager?: boolean;
+  /** Small "Illustration photo" tag, for pictures of people that are not Hassane. */
+  illustration?: boolean;
 }) {
   return (
     <div className={`relative overflow-hidden bg-graphite ${className}`}>
       <Image
         src={photo.src}
-        alt={photo.alt}
+        alt={photo.alt[lang]}
         fill
         sizes={sizes}
         quality={70}
@@ -131,40 +166,34 @@ export function PhotoBox({
         className="object-cover"
         style={photo.position ? { objectPosition: photo.position } : undefined}
       />
+      {illustration && (
+        <span
+          aria-hidden="true"
+          className="absolute bottom-3 left-3 rounded-sm bg-ink/85 px-2 py-1 text-[0.7rem] font-bold tracking-[0.12em] text-paper/90 uppercase"
+        >
+          {ui[lang].illustration}
+        </span>
+      )}
     </div>
   );
 }
 
-export function CtaBand({
-  title,
-  text,
-}: {
-  title: ReactNode;
-  text: string;
-}) {
+/** Lime call-to-action band. The button calls Hassane (the only real booking channel). */
+export function CtaBand({ lang, title, text }: { lang: Lang; title?: ReactNode; text?: string }) {
+  const t = ui[lang];
   return (
     <section aria-labelledby="cta-title" className="bg-lime text-ink">
       <Container className="flex flex-col gap-8 py-16 md:flex-row md:items-end md:justify-between md:py-20">
         <div className="max-w-2xl">
           <h2 id="cta-title" className="display text-[clamp(2.6rem,7vw,4.75rem)]">
-            {title}
+            {title ?? <Marked t={t.ctaTitle} dark />}
           </h2>
-          <p className="mt-4 max-w-xl text-lg font-medium text-ink/80">{text}</p>
+          <p className="mt-4 max-w-xl text-lg font-medium text-ink/80">{text ?? t.ctaText}</p>
         </div>
-        <ButtonLink href="/contact#book" variant="dark" arrow className="shrink-0">
-          Book a free consultation
+        <ButtonLink href={site.phoneHref} variant="dark" arrow className="shrink-0">
+          {t.callCoach} · {site.phoneDisplay}
         </ButtonLink>
       </Container>
     </section>
-  );
-}
-
-export function DemoTag({ className = "" }: { className?: string }) {
-  return (
-    <span
-      className={`inline-flex items-center rounded-sm border border-sky/50 px-2 py-0.5 text-[0.7rem] font-bold tracking-[0.12em] text-sky uppercase ${className}`}
-    >
-      Demo testimonial
-    </span>
   );
 }

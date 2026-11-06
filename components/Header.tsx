@@ -3,12 +3,39 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { nav } from "@/lib/site";
+import { Menu, Phone, X } from "lucide-react";
+import { site } from "@/lib/site";
+import { localHref, navFor, switchHref, ui, type Lang } from "@/lib/i18n";
 import { Logo } from "./Logo";
 
-export function Header() {
-  const pathname = usePathname();
+function LangSwitch({ lang, pathname, className = "" }: { lang: Lang; pathname: string; className?: string }) {
+  const t = ui[lang];
+  const item = (to: Lang, label: string) =>
+    to === lang ? (
+      <span aria-current="true" className="text-lime">
+        {label}
+      </span>
+    ) : (
+      // Plain <a>: FR and EN use different root layouts, so this is a full page load anyway.
+      <a href={switchHref(pathname, to)} hrefLang={to} lang={to} className="text-paper/70 hover:text-paper">
+        {label}
+      </a>
+    );
+  return (
+    <nav aria-label={t.switchLabel} className={`flex items-center gap-2 text-sm font-bold ${className}`}>
+      {item("fr", "FR")}
+      <span aria-hidden="true" className="text-line">
+        |
+      </span>
+      {item("en", "EN")}
+    </nav>
+  );
+}
+
+export function Header({ lang }: { lang: Lang }) {
+  const t = ui[lang];
+  const nav = navFor(lang);
+  const pathname = usePathname() ?? "/";
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -31,16 +58,22 @@ export function Header() {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const strip = (p: string) => p.replace(/\/$/, "") || "/";
+  const home = strip(localHref(lang, "/"));
+  const isActive = (href: string) => {
+    const h = strip(href);
+    const p = strip(pathname);
+    return h === home ? p === home : p.startsWith(h);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-ink/95 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-10">
-        <Link href="/" className="rounded-sm" aria-label="Maya Stone Fitness, home">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:h-20 lg:px-10">
+        <Link href={localHref(lang, "/")} className="rounded-sm" aria-label={t.homeLabel}>
           <Logo />
         </Link>
 
-        <nav aria-label="Main" className="hidden lg:block">
+        <nav aria-label={t.mainNav} className="hidden lg:block">
           <ul className="flex items-center gap-1">
             {nav.map((item) => (
               <li key={item.href}>
@@ -56,13 +89,15 @@ export function Header() {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-2">
-          <Link
-            href="/contact#book"
-            className="hidden min-h-11 items-center rounded-md bg-lime px-4 text-sm font-bold text-ink transition-colors hover:bg-paper sm:inline-flex"
+        <div className="flex items-center gap-3">
+          <LangSwitch lang={lang} pathname={pathname} />
+          <a
+            href={site.phoneHref}
+            className="hidden min-h-11 items-center gap-2 rounded-md bg-lime px-4 text-sm font-bold text-ink transition-colors hover:bg-paper sm:inline-flex"
           >
-            Free consultation
-          </Link>
+            <Phone aria-hidden="true" className="size-4" />
+            {site.phoneDisplay}
+          </a>
           <button
             ref={toggleRef}
             type="button"
@@ -72,17 +107,12 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
           >
             {open ? <X aria-hidden="true" className="size-5" /> : <Menu aria-hidden="true" className="size-5" />}
-            <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
+            <span className="sr-only">{open ? t.closeMenu : t.openMenu}</span>
           </button>
         </div>
       </div>
 
-      <nav
-        id="mobile-menu"
-        aria-label="Main"
-        hidden={!open}
-        className="border-t border-line bg-ink lg:hidden"
-      >
+      <nav id="mobile-menu" aria-label={t.mainNav} hidden={!open} className="border-t border-line bg-ink lg:hidden">
         <ul className="mx-auto flex max-w-7xl flex-col px-4 py-4 sm:px-6">
           {nav.map((item) => (
             <li key={item.href}>
@@ -96,12 +126,13 @@ export function Header() {
             </li>
           ))}
           <li className="pt-5">
-            <Link
-              href="/contact#book"
-              className="flex min-h-12 items-center justify-center rounded-md bg-lime px-5 font-bold text-ink"
+            <a
+              href={site.phoneHref}
+              className="flex min-h-12 items-center justify-center gap-2 rounded-md bg-lime px-5 font-bold text-ink"
             >
-              Book a free consultation
-            </Link>
+              <Phone aria-hidden="true" className="size-4" />
+              {t.callCoach} · {site.phoneDisplay}
+            </a>
           </li>
         </ul>
       </nav>

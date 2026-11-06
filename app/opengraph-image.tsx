@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const dynamic = "force-static";
 
-export const alt = "Maya Stone Fitness: Stronger body, clearer mind, better lifestyle. Personal trainer in Manchester.";
+export const alt = "Accro Temple : coaching sportif avec Hassane Yahya à Saint-Lô";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -35,25 +35,25 @@ export default function OpengraphImage() {
             }}
           >
             <svg width="44" height="44" viewBox="0 0 32 32">
-              <path d="M7 23V9.5h3.4L16 17l5.6-7.5H25V23h-3.6v-7.6L16 22.4l-5.4-7V23z" fill="#101010" />
+              <path d="M16 5.5 25.5 26.5h-4.6l-1.9-4.6h-6l-1.9 4.6H6.5zm0 7.6-1.9 5.2h3.8z" fill="#101010" fillRule="evenodd" />
             </svg>
           </div>
-          <div style={{ fontSize: 36, fontWeight: 800, letterSpacing: 2 }}>MAYA STONE FITNESS</div>
+          <div style={{ fontSize: 36, fontWeight: 800, letterSpacing: 2 }}>ACCRO TEMPLE · COACHING</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 84, fontWeight: 800, lineHeight: 1, textTransform: "uppercase" }}>
-            Stronger body, clearer mind,
+          <div style={{ fontSize: 76, fontWeight: 800, lineHeight: 1, textTransform: "uppercase" }}>
+            Tu es bien plus
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignSelf: "flex-start", marginTop: 8 }}>
-            <div style={{ fontSize: 84, fontWeight: 800, lineHeight: 1, textTransform: "uppercase" }}>
-              better lifestyle
+            <div style={{ fontSize: 76, fontWeight: 800, lineHeight: 1, textTransform: "uppercase" }}>
+              capable que tu ne le penses
             </div>
             <div style={{ height: 14, background: "#B6FF3B", borderRadius: 8, marginTop: 10 }} />
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 28, color: "#A8A8A8" }}>
-          <span>Personal Trainer in Manchester</span>
-          <span style={{ color: "#3ABEFF" }}>Strength · Online · Lifestyle</span>
+          <span>Coach sportif à Saint-Lô · Hassane Yahya</span>
+          <span style={{ color: "#3ABEFF" }}>Projet d&apos;entraînement</span>
         </div>
       </div>
     ),

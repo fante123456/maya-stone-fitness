@@ -1,19 +1,24 @@
 import type { ReactNode } from "react";
 import type { Photo } from "@/lib/photos";
+import type { Lang } from "@/lib/i18n";
 import { Container, Eyebrow, PhotoBox } from "./ui";
 
 /** Top section of inner pages: eyebrow, the page's single H1, intro, optional photo. */
 export function PageIntro({
+  lang,
   eyebrow,
   title,
   intro,
   photo,
+  illustration = false,
   children,
 }: {
+  lang: Lang;
   eyebrow: string;
   title: ReactNode;
   intro: ReactNode;
   photo?: Photo;
+  illustration?: boolean;
   children?: ReactNode;
 }) {
   return (
@@ -30,6 +35,8 @@ export function PageIntro({
         {photo && (
           <PhotoBox
             photo={photo}
+            lang={lang}
+            illustration={illustration}
             sizes="(min-width: 1024px) 38vw, 100vw"
             className="aspect-[16/10] rounded-lg lg:col-span-5 lg:aspect-[4/5]"
             eager

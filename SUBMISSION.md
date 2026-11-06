@@ -6,7 +6,7 @@ Personal fitness coach website built with Next.js (5 pages, fictional brand).
 
 | Item | Link |
 | --- | --- |
-| GitHub repository | Not used: the project is delivered as a zip for o2switch hosting instead of GitHub |
+| GitHub repository | https://github.com/fante123456/maya-stone-fitness |
 | Live website | https://maya-stone.ammar-rajabi.com |
 | Upload package | `maya-stone-fitness-o2switch.zip` (static site, 73 files, 673 KB) |
 

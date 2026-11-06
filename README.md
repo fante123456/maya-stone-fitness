@@ -26,11 +26,11 @@ Maya Stone, the prices and the testimonials are fictional. Testimonials are labe
 
 ## Tech
 
-- Next.js 16 (App Router, TypeScript, Cache Components), all pages prerendered as static
+- Next.js 16 (App Router, TypeScript) as a static export for Apache hosting
 - Tailwind CSS v4 and lucide-react icons
-- `next/image` with AVIF/WebP and an Unsplash-only `remotePatterns` rule
+- `next/image` with a custom loader: Unsplash's CDN serves each size as AVIF/WebP
 - Per-page metadata, Open Graph image, `sitemap.xml`, `robots.txt`, favicon
-- Basic security headers in `next.config.ts`
+- Security headers, HTTPS redirect, caching and gzip in `public/.htaccess`
 
 ## Run locally
 
@@ -43,8 +43,18 @@ Then open http://localhost:3000.
 
 ```bash
 npm run build
-npm run start
+npm run preview
 ```
+
+`npm run build` creates a static site in `out/`. `npm run preview` serves it at http://127.0.0.1:3000 with gzip and the same headers as the server.
+
+## Deploy to o2switch (shared hosting)
+
+1. Set the live address in `lib/site.ts` (`SITE_URL`, no trailing slash), then run `npm run build`.
+2. Upload everything inside `out/` (including the hidden `.htaccess`) to the domain or subdomain folder in cPanel File Manager.
+3. `.htaccess` forces HTTPS, sets the security and cache headers, enables gzip and serves `404.html` for missing pages.
+
+The site is built for the root of a domain or subdomain. For a subfolder, add `basePath` in `next.config.ts` and change `ErrorDocument` in `public/.htaccess`.
 
 ## Project structure
 

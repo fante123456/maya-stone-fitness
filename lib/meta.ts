@@ -14,6 +14,8 @@ export function pageMetadata({
   absoluteTitle?: boolean;
 }): Metadata {
   const fullTitle = absoluteTitle ? title : `${title} | ${site.name}`;
+  // The static export serves every page as a folder (/about/), so URLs end with a slash.
+  const url = path === "/" ? "/" : `${path.replace(/\/$/, "")}/`;
   // Page-level openGraph replaces the parent's, so the share image is set on every page.
   const image = {
     url: "/opengraph-image",
@@ -24,14 +26,14 @@ export function pageMetadata({
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: path },
+    alternates: { canonical: url },
     openGraph: {
       type: "website",
       locale: "en_GB",
       siteName: site.name,
       title: fullTitle,
       description,
-      url: path,
+      url,
       images: [image],
     },
     twitter: { card: "summary_large_image", title: fullTitle, description, images: [image.url] },

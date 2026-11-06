@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "node scripts/preview-export.mjs out 3000",
+    "lint": "eslint",
+    "postbuild": "node scripts/fix-export-prefetch.mjs",
+    "preview": "node scripts/preview-export.mjs out 3000"
   },
   "dependencies": {
     "lucide-react": "^1.69.0",

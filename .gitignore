@@ -42,3 +42,10 @@ next-env.d.ts
 
 # review screenshots (decide at submission)
 /screenshots
+
+# upload zips for o2switch
+*.zip
+/release/
+
+# local Claude Code settings
+.claude

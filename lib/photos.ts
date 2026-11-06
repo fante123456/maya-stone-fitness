@@ -1,6 +1,5 @@
 // All photos are free Unsplash License images, chosen from a contact sheet.
-// The query string must match images.remotePatterns in next.config.ts.
-const QUERY = "?auto=compress&fm=jpg&w=1600&q=75";
+// Size and format are added per screen width by lib/unsplash-loader.ts.
 
 export type Photo = {
   src: string;
@@ -20,7 +19,7 @@ function photo(
   position?: string,
 ): Photo {
   return {
-    src: `https://images.unsplash.com/${id}${QUERY}`,
+    src: `https://images.unsplash.com/${id}`,
     alt,
     credit,
     profile: `https://unsplash.com/@${profile}?utm_source=maya_stone_fitness&utm_medium=referral`,

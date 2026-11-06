@@ -1,5 +1,8 @@
 // Fictional brand details from the MX AI Academy Challenge 3 brief. Do not change.
-export const SITE_URL = "https://maya-stone-fitness.vercel.app";
+// The live address, used for canonical URLs, the sitemap and share links.
+// Placeholder until the o2switch address is known: change the fallback below
+// (or set NEXT_PUBLIC_SITE_URL) and run `npm run build` again. No trailing slash.
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://maya-stone.ammar-rajabi.com";
 
 export const site = {
   name: "Maya Stone Fitness",

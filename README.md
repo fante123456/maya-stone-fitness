@@ -4,7 +4,8 @@ A five-page personal brand website for **Maya Stone Fitness**, a fictional perso
 
 > Stronger body, clearer mind, better lifestyle
 
-**Live site:** https://maya-stone.ammar-rajabi.com
+- **Live site (o2switch):** https://maya-stone.ammar-rajabi.com
+- **Vercel:** https://maya-stone-fitness-eight.vercel.app
 
 Maya Stone, the prices and the testimonials are fictional. Testimonials are labelled as demo content on the site.
 

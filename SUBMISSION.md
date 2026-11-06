@@ -7,7 +7,8 @@ Personal fitness coach website built with Next.js (5 pages, fictional brand).
 | Item | Link |
 | --- | --- |
 | GitHub repository | https://github.com/fante123456/maya-stone-fitness |
-| Live website | https://maya-stone.ammar-rajabi.com |
+| Live website (o2switch) | https://maya-stone.ammar-rajabi.com |
+| Vercel deployment | https://maya-stone-fitness-eight.vercel.app |
 | Upload package | `maya-stone-fitness-o2switch.zip` (static site, 73 files, 673 KB) |
 
 ## Screenshots
